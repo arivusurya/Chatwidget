@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET(req: NextResponse) {
+export async function GET(req: NextRequest) {
   try {
     const data = await getBotAndSource();
     return NextResponse.json({ data: data }, { status: 201 });
