@@ -6,12 +6,11 @@ export async function GET(
   { params }: { params: { slug: string } }
 ) {
   try {
-    const { slug } = await params;
-    const botinfo = await getbotInfo({ slug });
+    const { slug } = params; // Directly access slug from params
+    const botinfo = await getbotInfo({ slug }); // Fetch bot info from the database
     console.log("Received ID:", slug);
 
-    // Process the ID as needed, e.g., fetch data from the database using this ID
-
+    // Respond with bot info
     return NextResponse.json(
       {
         message: `Data for bot with ID ${slug} retrieved successfully`,
