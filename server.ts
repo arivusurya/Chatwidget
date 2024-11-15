@@ -14,7 +14,7 @@ const handler = app.getRequestHandler();
 
 app.prepare().then(async () => {
   // Initialize the database tables
-  await initializeTables(); // Ensure tables are created before starting the server
+  // await initializeTables(); // Ensure tables are created before starting the server
   console.log("Database tables initialized.");
 
   const greetWord = ["hi", "hello", "hey"];
