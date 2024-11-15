@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import ChatWrapper, { useChat } from "@/components/Wrappers/socketwrapper"; // Use the context directly
 import { UserInfo } from "@/types";
 import { createCustomerapi } from "@/utils/Api";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 const Page = () => {
@@ -174,11 +174,13 @@ const Page = () => {
   );
 };
 
-// Wrap the Page component with ChatWrapper in your main entry point (e.g., _app.tsx or index.tsx)
+// Wrap the Page component with ChatWrapper and Suspense in your main entry point (e.g., _app.tsx or index.tsx)
 const WrappedPage = () => (
-  <ChatWrapper>
-    <Page />
-  </ChatWrapper>
+  <Suspense fallback={<div>Loading...</div>}>
+    <ChatWrapper>
+      <Page />
+    </ChatWrapper>
+  </Suspense>
 );
 
 export default WrappedPage;
