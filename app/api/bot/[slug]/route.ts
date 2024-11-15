@@ -1,12 +1,18 @@
 import { getbotInfo } from "@/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  context: { params: { slug: string } } // No `await` needed for params
-) {
+export async function GET(req: NextRequest) {
   try {
-    const { slug } = context.params; // Correct access to params
+    const { searchParams } = new URL(req.url);
+    const slug = searchParams.get("slug");
+
+    if (!slug) {
+      return NextResponse.json(
+        { message: "Slug parameter is missing" },
+        { status: 400 }
+      );
+    }
+
     const botinfo = await getbotInfo({ slug }); // Fetch bot info from the database
 
     // Return successful response
