@@ -3,14 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: { slug: string } } // No `await` needed for params
 ) {
   try {
-    const { slug } = params; // Directly access slug from params
+    const { slug } = context.params; // Correct access to params
     const botinfo = await getbotInfo({ slug }); // Fetch bot info from the database
-    console.log("Received ID:", slug);
 
-    // Respond with bot info
+    // Return successful response
     return NextResponse.json(
       {
         message: `Data for bot with ID ${slug} retrieved successfully`,
@@ -20,6 +19,8 @@ export async function GET(
     );
   } catch (error) {
     console.error("Error occurred:", error);
+
+    // Return error response
     return NextResponse.json({ message: "Error occurred" }, { status: 500 });
   }
 }
