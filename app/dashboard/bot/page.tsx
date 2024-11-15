@@ -37,8 +37,10 @@ function Page() {
   };
 
   const handleLearn = async () => {
-    const data = await learnapi(botinfo.file);
-    setbotinfo((prev) => ({ ...prev, source: data }));
+    if (botinfo.file) {
+      const data = await learnapi(botinfo.file);
+      setbotinfo((prev) => ({ ...prev, source: data }));
+    }
   };
 
   useEffect(() => {
@@ -136,7 +138,7 @@ function Page() {
                   }
                 >
                   <option value="">-- Select Source --</option>
-                  {source.map((src) => (
+                  {source.map((src: any) => (
                     <option key={src.sourceid} value={src.sourceid}>
                       {src.documentname}
                     </option>
