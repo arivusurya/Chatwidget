@@ -5,25 +5,24 @@ import { getBotinfo } from "@/utils/Api";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
+function Page() {
+  const router = useRouter();
+  const { slug } = router.query;
 
-function Page({ params }: PageProps) {
   const [botinfo, setbotinfo] = useState({
     name: "",
     website: "",
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getBotinfo(params.slug);
-      setbotinfo(data);
-    };
-    fetchData();
-  }, [params?.slug]);
+    if (slug) {
+      const fetchData = async () => {
+        const data = await getBotinfo(slug as string);
+        setbotinfo(data);
+      };
+      fetchData();
+    }
+  }, [slug]);
 
   return (
     <div className="w-full h-[80vh] flex px-1 gap-4">
@@ -92,7 +91,7 @@ function Page({ params }: PageProps) {
       <div className="flex-1 border-l pl-4">
         {/* Replace this iframe with your chat component */}
         <iframe
-          src={`http://localhost:3000/chatui?botid=${params.slug}`} // Replace with the actual chat UI URL
+          src={`http://localhost:3000/chatui?botid=${slug}`} // Replace with the actual chat UI URL
           className="w-full h-full border-none"
           title="Chat UI"
         />
