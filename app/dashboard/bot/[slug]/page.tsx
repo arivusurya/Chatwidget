@@ -3,8 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getBotinfo } from "@/utils/Api";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-function Page({ params }: { params: { slug: string } }) {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+function Page({ params }: PageProps) {
   const [botinfo, setbotinfo] = useState({
     name: "",
     website: "",
